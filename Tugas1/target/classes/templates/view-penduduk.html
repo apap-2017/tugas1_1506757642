@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Sistem Kependudukan Online Provinsi DKI Jakarta</title>
+
+<!-- Bootstrap core CSS -->
+
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<link href="vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css' />
+
+<!-- Custom styles for this template -->
+<link href="css/agency.min.css" rel="stylesheet" />
+</head>
+
+<style>
+#mainNav, footer {
+	background-color: black;
+}
+
+.copyright {
+	color: #fed136;
+}
+
+p {
+	line-height: 80%;
+}
+
+h3 {
+	line-height: 200%;
+}
+</style>
+
+<body id="page-top">
+
+	<!-- Navigation -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">SI
+				Kependudukan</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a th:href="@{'/'}"
+						class="nav-link js-scroll-trigger">Home</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section>
+		<div class="col-lg-12">
+			<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}"
+				class="text-center text-capitalize"></h3>
+			<div class="row">
+				<div class="col-md-3 text-right"></div>
+				<div class="col-md-3 font-weight-bold">
+					<p>NIK</p>
+					<p>Nama</p>
+					<p>Tempat/Tanggal Lahir</p>
+					<p>Alamat</p>
+					<p>RT/RW</p>
+					<p>Kelurahan/Desa</p>
+					<p>Kecamatan</p>
+					<p>Kota</p>
+					<p>Golongan Darah</p>
+					<p>Agama</p>
+					<p>Status Perkawinan</p>
+					<p>Status Dalam Keuarga</p>
+					<p>Pekerjaan</p>
+					<p>Kewarganegaraan</p>
+					<p>Status Kematian</p>
+				</div>
+				<div class="col-md-3">
+					<p th:text="${penduduk.nik}"></p>
+					<p th:text="${penduduk.nama}"></p>
+					<p
+						th:text="${penduduk.tempat_lahir} + ', ' + ${penduduk.tanggal_lahir}"></p>
+					<p th:text="${keluarga.alamat}"></p>
+					<p th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></p>
+					<p th:text="${kelurahan.nama_kelurahan}"></p>
+					<p th:text="${kecamatan.nama_kecamatan}"></p>
+					<p th:text="${kota.nama_kota}"></p>
+					<p th:text="${penduduk.golongan_darah}"></p>
+					<p th:text="${penduduk.agama}"></p>
+					<p th:text="${penduduk.status_perkawinan}"></p>
+					<p th:text="${penduduk.status_dalam_keluarga}"></p>
+					<p th:text="${penduduk.pekerjaan}"></p>
+					<p th:if="${penduduk.is_wni=='1'}">WNI</p>
+					<p th:unless="${penduduk.is_wni=='1'}">WNA</p>
+					<p th:if="${penduduk.is_wafat=='1'}">Meninggal</p>
+					<p th:unless="${penduduk.is_wafat=='1'}">Hidup</p>
+				</div>
+				<div class="col-md-3">
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br /> <a th:href="'penduduk/ubah/' + ${penduduk.nik}"
+						class="btn btn-primary">Ubah Data</a><br />
+					<br /> <a th:href="'keluarga?nkk=' + ${keluarga.nomor_kk}"
+						class="btn btn-primary">Lihat Keluarga</a><br />
+					<br />
+					<div th:if="${penduduk.is_wafat=='0'}">
+						<form action="/penduduk/mati" method="post">
+							<input type="hidden" name="nik" th:value="${penduduk.nik}"></input>
+							<input type="submit" value="Nonaktifkan" class="btn btn-danger"></input>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="copyright">Copyright &copy; SIDUK DKI Jakarta
+						2017</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/popper/popper.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Contact form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/agency.min.js"></script>
+
+</body>
+
+</html>

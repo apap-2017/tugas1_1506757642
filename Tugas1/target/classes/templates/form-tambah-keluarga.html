@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Sistem Kependudukan Online Provinsi DKI Jakarta</title>
+
+<!-- Bootstrap core CSS -->
+
+<link th:href="@{'~/vendor/bootstrap/css/bootstrap.min.css'}"
+	rel="stylesheet" />
+
+
+<link th:href="@{'~/vendor/font-awesome/css/font-awesome.min.css'}"
+	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css' />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Custom styles for this template -->
+<link th:href="@{'~/css/agency.min.css'}" rel="stylesheet" />
+</head>
+
+<style>
+#mainNav, footer {
+	background-color: black;
+}
+
+.copyright {
+	color: #fed136;
+}
+
+p {
+	line-height: 80%;
+}
+
+h3 {
+	line-height: 200%;
+}
+</style>
+
+<body id="page-top">
+
+	<!-- Navigation -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">SI
+				Kependudukan</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a th:href="@{'/'}"
+						class="nav-link js-scroll-trigger">Home</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section>
+		<div class="col-lg-12">
+			<h3 class="text-center text-capitalize">Tambah Keluarga</h3>
+		</div>
+		<div class="container">
+			<div class="col-md-5"></div>
+			<div>
+				<form action="/keluarga/tambah" method="POST"
+					th:object="${keluarga}">
+					<div class="form-group">
+						<label for="alamat">Alamat</label> <input type="text"
+							class="form-control" name="alamat" placeholder="Alamat"
+							th:value="${keluarga.alamat}" th:field="*{alamat}" th:required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="rt">RT</label> <input type="text" class="form-control"
+							name="rt" placeholder="RT" th:value="${keluarga.rt}"
+							th:field="*{rt}" th:required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="RW">RW</label> <input type="text" class="form-control"
+							name="rw" placeholder="RW" th:value="${keluarga.rw}"
+							th:field="*{rw}" th:required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="kelurahan">Kelurahan/Desa</label> <select
+							name="id_kelurahan" class="form-control selectpicker"
+							data-live-search="true" th:field="*{id_kelurahan}" id="kelurahan" th:required="required">
+							<option th:each="kelurahan: ${allKelurahan}"
+								th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}"> </option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="kecamatan">Kecamatan</label> <input type="text"
+							class="form-control" name="kecamatan" placeholder="Kecamatan"
+							id="kecamatan" readonly="readonly" />
+					</div>
+
+					<div class="form-group">
+						<label for="kota">Kota</label> <input type="text"
+							class="form-control" name="kota" placeholder="Kota" id="kota"
+							readonly="readonly" />
+					</div>
+					<input type="hidden" name="kode_kecamatan" id="kode_kecamatan" />
+					<div class="text-center">
+						<input type="submit" value="Simpan"
+							class="btn btn-primary btnNext"></input>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="copyright">Copyright &copy; SIDUK DKI Jakarta
+						2017</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{'~/vendor/jquery/jquery.min.js'}"></script>
+	<script th:src="@{'~/vendor/popper/popper.min.js'}"></script>
+	<script th:src="@{'~/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+
+	<!-- Plugin JavaScript -->
+	<script th:src="@{'~/vendor/jquery-easing/jquery.easing.min.js'}"></script>
+
+	<!-- Contact form JavaScript -->
+	<script th:src="@{'~/js/jqBootstrapValidation.js'}"></script>
+	<script th:src="@{'~/js/contact_me.js'}"></script>
+
+	<!-- Custom scripts for this template -->
+	<script th:src="@{'~/js/agency.min.js'}"></script>
+</body>
+<script th:inline="javascript">
+	var allKelurahan = [[${allKelurahan}]];
+	var kelurahans = {};
+	
+	$( document ).ready(function() {
+		allKelurahan.forEach(function(kelurahan) {
+			kelurahans[kelurahan.id] = kelurahan;	
+		})
+	});
+	
+	$('#kelurahan').on('change', function() {
+	  $('#kecamatan').val(kelurahans[this.value].nama_kecamatan);
+	  $('#kota').val(kelurahans[this.value].nama_kota);
+	  $('#kode_kecamatan').val(kelurahans[this.value].kode_kecamatan);
+	})
+</script>
+</html>

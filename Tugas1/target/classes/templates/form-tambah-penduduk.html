@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Sistem Kependudukan Online Provinsi DKI Jakarta</title>
+
+<!-- Bootstrap core CSS -->
+
+<link th:href="@{'~/vendor/bootstrap/css/bootstrap.min.css'}"
+	rel="stylesheet" />
+
+
+<link th:href="@{'~/vendor/font-awesome/css/font-awesome.min.css'}"
+	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css' />
+
+<!-- Custom styles for this template -->
+<link th:href="@{'~/css/agency.min.css'}" rel="stylesheet" />
+</head>
+
+<style>
+#mainNav, footer {
+	background-color: black;
+}
+
+.copyright {
+	color: #fed136;
+}
+
+p {
+	line-height: 80%;
+}
+
+h3 {
+	line-height: 200%;
+}
+</style>
+
+<body id="page-top">
+
+	<!-- Navigation -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">SI
+				Kependudukan</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a th:href="@{'/'}"
+						class="nav-link js-scroll-trigger">Home</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section>
+		<div class="col-lg-12">
+			<h3 class="text-center text-capitalize">Tambah Penduduk</h3>
+		</div>
+		<div class="container">
+			<div class="col-md-5"></div>
+			<div>
+				<form action="/penduduk/tambah" method="POST"
+					th:object="${penduduk}">
+					<div class="form-group">
+						<label for="nama">Masukkan Nama</label> <input type="text"
+							class="form-control" name="nama" placeholder="Nama"
+							th:value="${penduduk.nama}" th:field="*{nama}" th:required="required"></input>
+					</div>
+					<div class="form-group">
+						<label for="tempat_lahir">Tempat Lahir</label> <input type="text"
+							class="form-control" name="tempat_lahir"
+							placeholder="Tempat Lahir" th:value="${penduduk.tempat_lahir}"
+							th:field="*{tempat_lahir}" th:required="required"></input>
+					</div>
+					<div class="form-group">
+						<label for="tanggal_lahir">Tanggal Lahir</label> <input
+							type="date" class="form-control" name="tanggal_lahir"
+							placeholder="Tanggal Lahir" th:value="${penduduk.tanggal_lahir}"
+							th:field="*{tanggal_lahir}" th:required="required"></input>
+					</div>
+					<div class="form-group">
+						<label for="golongan darah">Golongan Darah</label> <select
+							class="form-control" name="golongan_darah"
+							th:value="${penduduk.golongan_darah}"
+							th:field="*{golongan_darah}" th:required="required">
+							<option value="AB+">AB+</option>
+							<option value="AB−">AB-</option>
+							<option value="A+">A+</option>
+							<option value="A−">A-</option>
+							<option value="B+">B+</option>
+							<option value="B−">B-</option>
+							<option value="O+">O+</option>
+							<option value="O−">O-</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="jenis kelamin">Jenis Kelamin</label> <select
+							class="form-control" name="jenis_kelamin"
+							th:value="${penduduk.jenis_kelamin}" th:field="*{jenis_kelamin}" th:required="required">
+							<option value="0">Laki-Laki</option>
+							<option value="1">Perempuan</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="agama">Agama</label> <input type="text"
+							class="form-control" name="agama" placeholder="Agama"
+							th:value="${penduduk.agama}" th:field="*{agama}" th:required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="status perkawinan">Status Perkawinan</label> <select
+							class="form-control" name="status_perkawinan"
+							th:value="${penduduk.status_perkawinan}"
+							th:field="*{status_perkawinan}" th:required="required">
+							<option value="Kawin">Kawin</option>
+							<option value="Belum Kawin">Belum Kawin</option>
+							<option value="Cerai Hidup">Cerai Hidup</option>
+							<option value="Cerai Mati">Cerai Mati</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="pekerjan">Pekerjaan</label> <input type="text"
+							class="form-control" name="pekerjaan" placeholder="Pekerjaan"
+							th:value="${penduduk.pekerjaan}" th:field="*{pekerjaan}" th:required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="kewarganegaraan">Kewarganegaraan</label> <select
+							class="form-control" name="is_wni" th:value="${penduduk.is_wni}"
+							th:field="*{is_wni}" th:required="required">
+							<option value="1">WNI</option>
+							<option value="2">WNA</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="status kematian">Status Kematian</label> <select
+							class="form-control" name="is_wafat"
+							th:value="${penduduk.is_wafat}" th:field="*{is_wafat}" th:required="required">
+							<option value="0">Hidup</option>
+							<option value="1">Wafat</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="id keluarga">Id Keluarga</label> <input type="text"
+							class="form-control" name="id_keluarga"
+							placeholder="Isi Keluarga"
+							th:value="${penduduk.id_keluarga == '0'}"
+							th:field="*{id_keluarga}" th:required="required" />
+					</div>
+					<div class="form-group">
+						<label for="status dalam keluarga">Status Dalam Keluarga</label> <input type="text"
+							class="form-control" name="status_dalam_keluarga"
+							placeholder="Status dalam keluarga"
+							th:field="*{status_dalam_keluarga}" th:required="required" />
+					</div>
+					<div class="text-center">
+						<input type="submit" value="Simpan" class="btn btn-primary btnNext"></input>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="copyright">Copyright &copy; SIDUK DKI Jakarta
+						2017</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{'~/vendor/jquery/jquery.min.js'}"></script>
+	<script th:src="@{'~/vendor/popper/popper.min.js'}"></script>
+	<script th:src="@{'~/vendor/bootstrap/js/bootstrap.min.js'}"></script>
+
+	<!-- Plugin JavaScript -->
+	<script th:src="@{'~/vendor/jquery-easing/jquery.easing.min.js'}"></script>
+
+	<!-- Contact form JavaScript -->
+	<script th:src="@{'~/js/jqBootstrapValidation.js'}"></script>
+	<script th:src="@{'~/js/contact_me.js'}"></script>
+
+	<!-- Custom scripts for this template -->
+	<script th:src="@{'~/js/agency.min.js'}"></script>
+
+</body>
+
+</html>
